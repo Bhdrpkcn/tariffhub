@@ -1,52 +1,42 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useEffect } from "react";
 import "./App.css";
+import { useDispatch } from "react-redux";
+import { setTariffRedux, setLoading } from "./redux/reducers/tariffReducer";
+import Test from "./components/Test";
 
 function App() {
-  const [tariffs, setTariffs] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    async function fetchTariffs() {
+    const fetchTariffs = async () => {
       try {
+        // Turn on the loading state
+        dispatch(setLoading(true));
+
         const response = await fetch("https://demo6684249.mockable.io/tariffs");
         if (!response.ok) {
-          throw new Error(
-            `Error fetching tariffs: ${response.status} ${response.statusText}`
-          );
+          throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setTariffs(data.tariffs);
+
+        // Simulate a loading state for 2 seconds before setting the data
+        setTimeout(() => {
+          dispatch(setTariffRedux(data.tariffs));
+          // Turn off the loading state when data is ready
+          dispatch(setLoading(false));
+        }, 2000); // Adjust the delay time as needed
       } catch (error) {
-        console.error("Error fetching tariffs:", error);
+        console.error("Fetch error:", error);
+        alert("There was a network issue. Please refresh the page.");
+        // Turn off the loading state in case of an error
+        dispatch(setLoading(false));
       }
-    }
+    };
 
     fetchTariffs();
-  }, []); // The empty array [] makes this effect run once after the initial render.
+  }, [dispatch]);
 
-  return (
-    <div className="App">
-      <div>
-        {tariffs.map((tariff) => (
-          <div className="tariffs">
-            <hr />
-            <h4>
-              brand : {tariff.brand}(-id:{tariff.id})
-            </h4>
-            <h6>
-              <ul>tariff name : {tariff.name}</ul>
-              <ul>connection type: {tariff.type}</ul>
-              <ul>
-                speed: {tariff.download_speed}-{tariff.upload_speed}
-              </ul>
-              <ul>offers: {tariff.offers}</ul>
-              <h2>speed: {tariff.price}</h2>
-            </h6>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <div className="App"><Test /></div>;
 }
 
 export default App;
