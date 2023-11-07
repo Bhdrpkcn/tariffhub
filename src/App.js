@@ -3,6 +3,8 @@ import "./App.css";
 import { useDispatch } from "react-redux";
 import { setTariffRedux, setLoading } from "./redux/reducers/tariffReducer";
 import Test from "./components/Test";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const dispatch = useDispatch();
@@ -10,7 +12,6 @@ function App() {
   useEffect(() => {
     const fetchTariffs = async () => {
       try {
-        // Turn on the loading state
         dispatch(setLoading(true));
 
         const response = await fetch("https://demo6684249.mockable.io/tariffs");
@@ -19,16 +20,14 @@ function App() {
         }
         const data = await response.json();
 
-        // Simulate a loading state for 2 seconds before setting the data
         setTimeout(() => {
           dispatch(setTariffRedux(data.tariffs));
-          // Turn off the loading state when data is ready
           dispatch(setLoading(false));
-        }, 2000); // Adjust the delay time as needed
+        }, 2000);
       } catch (error) {
         console.error("Fetch error:", error);
         alert("There was a network issue. Please refresh the page.");
-        // Turn off the loading state in case of an error
+
         dispatch(setLoading(false));
       }
     };
@@ -36,7 +35,15 @@ function App() {
     fetchTariffs();
   }, [dispatch]);
 
-  return <div className="App"><Test /></div>;
+  return (
+    <div className="App">
+      <Header />
+      <div className="Body">
+        <Sidebar />
+        <Test />
+      </div>
+    </div>
+  );
 }
 
 export default App;

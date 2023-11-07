@@ -5,6 +5,7 @@ export const tariffSlice = createSlice({
   initialState: {
     tariffs: [],
     isLoading: false,
+    sortingFilter: "Sort by",
   },
   reducers: {
     setTariffRedux: (state, action) => {
@@ -13,9 +14,30 @@ export const tariffSlice = createSlice({
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    setSortingFilter: (state, action) => {
+      state.sortingFilter = action.payload;
+    },
+    sortTariffs: (state) => {
+      const { tariffs, sortingFilter } = state;
+      const numericSort = (a, b) => {
+        const getValue = (tariff) => {
+          const value = tariff[sortingFilter].replace(/\D/g, ""); // Remove non-numeric characters
+          return parseInt(value, 10);
+        };
+        return getValue(a) - getValue(b);
+      };
+      state.tariffs = [...tariffs].sort(numericSort);
+    },
   },
 });
 
-export const { setTariffRedux, setLoading } = tariffSlice.actions;
+export const {
+  setTariffRedux,
+  setLoading,
+  setSortingFilter,
+  sortTariffs
+} = tariffSlice.actions;
 
 export default tariffSlice.reducer;
+
+
