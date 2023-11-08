@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
-import { setTariffRedux, setLoading } from "./redux/reducers/tariffReducer";
+import { setTariffRedux, setLoading,setCalculateTariffs } from "./redux/reducers/tariffReducer";
 import Test from "./components/Test";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-
+import { calculateTariffs } from "./utils/utils"
 function App() {
   const dispatch = useDispatch();
 
@@ -20,10 +20,14 @@ function App() {
         }
         const data = await response.json();
 
+        const { maxDownloadSpeed, maxUploadSpeed } = calculateTariffs(data.tariffs);
+
+
         setTimeout(() => {
           dispatch(setTariffRedux(data.tariffs));
           dispatch(setLoading(false));
-        }, 2000);
+          dispatch(setCalculateTariffs({ maxDownloadSpeed, maxUploadSpeed }));
+        }, 1000);
       } catch (error) {
         console.error("Fetch error:", error);
         alert("There was a network issue. Please refresh the page.");
