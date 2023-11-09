@@ -1,7 +1,12 @@
+/* //1320 px sidebar feOffset
+//768 px tariffCard inside components > column
+//640 px tariffcard components row to column */
+
 .tariffBody {
   display: flex;
   flex-direction: column;
   width: 80vw;
+  margin: 0.5rem 2rem 0.5rem 2rem;
 }
 
 .tariffHeader {
@@ -9,9 +14,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0rem 0rem 0.5rem 1rem;
+  background-color: #e2e2e2;
+  margin-bottom: 1rem;
   border: 1px solid black;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .tariffHeaderTitle {
@@ -23,19 +29,18 @@
 .tariffCard {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  background-color: #e2e2e2;
   height: 10rem;
-  width: 75vw;
   border: 1px solid black;
   border-radius: 0.5rem;
-  padding: 0.5rem 0rem 0rem 0rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
   margin-bottom: 0.5rem;
 }
 
 .tariffCred {
   display: flex;
   font-size: 12px;
-  width: 14rem;
+  width: 12rem;
   height: 100%;
 }
 
@@ -59,7 +64,8 @@
 
 .tariffImage {
   display: flex;
-  background-color: salmon;
+  background-color: #ccc;
+  border-radius: 100%;
   justify-content: center;
   align-items: center;
   height: 8rem;
@@ -67,6 +73,9 @@
 }
 
 .tariffName {
+  color: gray;
+  font-size: 1.2rem;
+  font-weight: bolder;
 }
 
 .tariffSpecs {
@@ -79,7 +88,7 @@
   width: 50vw;
 }
 .tariffSpeed {
-  margin: 1rem 1rem 1rem 0rem ;
+  margin: 1rem 1rem 1rem 0rem;
   width: 80%;
   max-width: 20rem;
   font-size: 14px;
@@ -87,21 +96,21 @@
 
 .speedBar {
   width: 100%;
-  height: .5rem;
-  margin-bottom: .5rem;
-  border-radius: .2rem;
+  height: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.2rem;
   background-color: #ccc;
 }
 
 .speedFillDown {
   height: 100%;
-  background-color:lightgreen;
-  border-radius: .2rem;
+  background-color: lightgreen;
+  border-radius: 0.2rem;
 }
 .speedFillUp {
   height: 100%;
-  border-radius: .2rem;
-  background-color:dodgerblue;
+  border-radius: 0.2rem;
+  background-color: dodgerblue;
 }
 
 .tariffOffers {
@@ -116,5 +125,57 @@
   align-items: center;
   height: 100%;
   width: 10rem;
-  justify-content:space-around; /* space for vertical align.*/
+  justify-content: space-around; /* space for vertical align.*/
+}
+
+@media only screen and (width < 1024px) {
+  .tariffBody {
+    width: 90vw;
+  }
+  .tariffCard {
+    margin-left: 0rem;
+  }
+}
+
+@media only screen and (width < 768px) {
+  .tariffBody {
+    width: 90vw;
+  }
+  .tariffCard {
+    margin-left: 0rem;
+  }
+}
+
+@media only screen and (width < 640px) {
+  .tariffBody {
+    width: 100vw;
+  }
+
+  .sortBtn {
+    scale: 0.75;
+  }
+  .tariffCard {
+    flex-direction: column;
+    height: 26rem;
+    align-items: center;
+  }
+  .tariffSpecs {
+    border-bottom: 0.5px solid grey;
+    width: 95% !important;
+  }
+  .tariffOffers {
+    display: flex;
+    flex-direction: column;
+    border-top: 0.5px solid grey;
+    height: 100% !important;
+    padding: 0.5rem;
+    align-items: center !important;
+  }
+  .tariffDetails {
+    font-size: 1.5rem;
+    width: 10rem !important;
+  }
+  .tariffSpeed {
+    margin: 1.5rem 1rem 1.5rem 3rem;
+  }
 }

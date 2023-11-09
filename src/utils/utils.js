@@ -11,3 +11,4 @@ export function calculateTariffs(tariffs) {
 
   return { maxDownloadSpeed, maxUploadSpeed };
 }
+

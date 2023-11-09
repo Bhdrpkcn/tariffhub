@@ -9,6 +9,9 @@ import { calculateTariffs } from "./utils/utils"
 function App() {
   const dispatch = useDispatch();
 
+
+  //send to redux via thunk - begin success failure, fetch... for better code structure.
+  // look : https://github.com/orabazu/todo-app/blob/main/src/actions/TODO/index.tsx
   useEffect(() => {
     const fetchTariffs = async () => {
       try {
@@ -38,6 +41,8 @@ function App() {
 
     fetchTariffs();
   }, [dispatch]);
+
+//use media querry.
 
   return (
     <div className="App">

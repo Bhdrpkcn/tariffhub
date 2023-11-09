@@ -1,16 +1,16 @@
 .App {
   display: flex;
   flex-direction: column;
-  background-color: #282c34;
+  background-color: #eee;
   min-height: 100vh;
-  color: white;
+  color: black;
 }
 
 .Body {
-  width: 95vw;
   display: flex;
   flex-direction: row;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -18,7 +18,5 @@
   display: flex;
   flex-direction: column;
   margin-top: 10rem;
-  scale: 5;
+  scale: 3;
 }
-
-

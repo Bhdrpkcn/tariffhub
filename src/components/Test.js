@@ -14,6 +14,7 @@ function Test() {
     dispatch(setSortingFilter(value));
     dispatch(sortTariffs());
   };
+  //useEffect - dispatch working mechanism SEARCH !
 
   const sortedTariffs = useSelector((state) => state.tariffRedux.tariffs);
 
@@ -22,6 +23,7 @@ function Test() {
       <div className="tariffHeader">
         <div className="tariffHeaderTitle">Tariffs</div>
         <Select
+          className="sortBtn"
           value={tariffsFromRedux.sortingFilter}
           onChange={handleSortingChange}
           style={{ width: 200, marginLeft: 16 }}
@@ -36,13 +38,13 @@ function Test() {
           <Spin />
         </div>
       ) : (
-        <ul>
+        <div>
           {sortedTariffs.map((tariff, index) => (
             <div key={tariff.id}>
               <TariffCard tariff={tariff} index={index + 1} />
             </div>
           ))}
-        </ul>
+        </div>
       )}
       <FloatButton.BackTop duration={2000} />
     </div>

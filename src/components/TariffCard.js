@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 function TariffCard({ tariff, index }) {
   const tariffs = useSelector((state) => state.tariffRedux.tariffs);
 
+  //fix : get from reducer
   const maxDownloadSpeed = Math.max(
     ...tariffs.map((t) => parseInt(t.download_speed, 10))
   );
@@ -24,7 +25,7 @@ function TariffCard({ tariff, index }) {
     (parseInt(tariff.upload_speed, 10) / maxUploadSpeed) * 100;
 
   let badgeTypes;
-
+  //seperate the badge & speed comp ?
   const speedProduct = relativeDownloadSpeed * relativeUploadSpeed;
 
   if (speedProduct > 2000) {

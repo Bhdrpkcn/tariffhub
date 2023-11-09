@@ -1,0 +1,80 @@
+:root {
+  --mainColor: #29335c;
+  --mainColorLight: #5767aa;
+  --secondaryColor: #db2b39;
+  --textColor: #eee;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+  padding: 2rem;
+  background-color: var(--mainColor);
+  color: var(--textColor);
+  box-sizing: border-box;
+}
+
+nav a {
+  margin: 1rem;
+  color: var(--textColor);
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--secondaryColor);
+}
+
+.nav-btn {
+  cursor: pointer;
+  border: none;
+  color: var(--textColor);
+  font-size: 1.8rem;
+}
+.nav-btn:hover {
+  color: var(--mainColorLight);
+}
+
+.header nav {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background-color: var(--mainColor);
+  transition: 1s;
+  transform: translateY(-100vh);
+}
+
+.header .responsiveHeader {
+  transform: none;
+}
+
+.nav-close-btn {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+.nav a {
+  font-size: 1.5rem;
+  background-color: var(--mainColor); /* Add this line for solid background */
+  padding: 0.5rem; /* Add padding for better appearance */
+  border-radius: 0.25rem; /* Optional: Add border-radius for rounded corners */
+}
+
+.tariffExp {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  margin: 5vw;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
