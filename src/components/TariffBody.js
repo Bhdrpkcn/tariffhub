@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { Spin } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 import TariffCard from "./TariffCard";
 import SidebarMobile from "./SidebarMobile";
 import { Select, FloatButton } from "antd";
@@ -13,7 +14,9 @@ import { useDispatch } from "react-redux";
 
 function TariffBody() {
   const dispatch = useDispatch();
+
   const tariffsFromRedux = useSelector((state) => state.tariffRedux);
+
   const handleSortingChange = useCallback(
     (value) => {
       dispatch(setSortingFilter(value));
@@ -22,6 +25,12 @@ function TariffBody() {
     [dispatch]
   );
 
+  const handleSortingCancel = useCallback(() => {
+    // Reset sorting filter and order to initial values and apply filters
+    dispatch(setSortingFilter("Sort by"));
+    dispatch(sortTariffs()); // Reset sorting order
+    dispatch(filterTariffs());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(sortTariffs());
@@ -49,16 +58,23 @@ function TariffBody() {
     <div className="tariffBody">
       <div className="tariffHeader">
         <div className="tariffHeaderTitle">Tariffs</div>
-        <Select
-          className="sortBtn"
-          value={tariffsFromRedux.sortingFilter}
-          onChange={handleSortingChange}
-          style={{ width: 200, marginLeft: 16 }}
-        >
-          <Select.Option value="download_speed">Download</Select.Option>
-          <Select.Option value="upload_speed">Upload</Select.Option>
-          <Select.Option value="price">Price</Select.Option>
-        </Select>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Select
+            className="sortBtn"
+            value={tariffsFromRedux.sortingFilter}
+            onChange={handleSortingChange}
+            style={{ width: 150, height: 40, marginLeft: 16, marginRight: 8 }}
+          >
+            <Select.Option value="download_speed">Download</Select.Option>
+            <Select.Option value="upload_speed">Upload</Select.Option>
+            <Select.Option value="price">Price</Select.Option>
+          </Select>
+          <CloseOutlined className="sortBtnCancel"
+            style={{ fontSize: 30, marginRight: 8, alignItems: "center" }}
+            value={tariffsFromRedux.sortingFilter}
+            onClick={handleSortingCancel}
+          />
+        </div>
       </div>
       <>{isMobile && <SidebarMobile />}</>
       {tariffsFromRedux.isLoading ? (

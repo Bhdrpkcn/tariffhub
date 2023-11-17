@@ -1,4 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+import { calculateTariffs } from "../../utils/utils";
+
+export const fetchTariffs = createAsyncThunk(
+  "tariffRedux/fetchTariffs",
+  async (_, { dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+
+      const response = await fetch("https://demo6684249.mockable.io/tariffs");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+
+      const { maxDownloadSpeed, maxUploadSpeed } = calculateTariffs(
+        data.tariffs
+      );
+
+      dispatch(setTariffRedux(data.tariffs));
+      dispatch(setCalculateTariffs({ maxDownloadSpeed, maxUploadSpeed }));
+    } catch (error) {
+      console.error("Fetch error:", error);
+      alert("There was a network issue. Please refresh the page.");
+
+      dispatch(setLoading(false));
+    }
+  }
+);
 
 export const tariffSlice = createSlice({
   name: "tariffRedux",
@@ -40,6 +69,9 @@ export const tariffSlice = createSlice({
           const speedA = parseFloat(a[sortingFilter].replace(/\D/g, ""));
           const speedB = parseFloat(b[sortingFilter].replace(/\D/g, ""));
           return speedB - speedA;
+        } else if (sortingFilter === "Sort by") {
+          // Sort based on item id
+          return a.id - b.id;
         }
         return 0;
       };

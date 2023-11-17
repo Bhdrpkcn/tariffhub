@@ -21,9 +21,15 @@
 }
 
 .tariffHeaderTitle {
+
   font-weight: 200;
   font-size: 2rem;
   padding: 1rem;
+}
+
+.sortBtnCancel:hover {
+  cursor: pointer;
+  color:red
 }
 
 .tariffCard {
@@ -173,9 +179,6 @@
     width: 100vw;
   }
 
-  .sortBtn {
-    scale: 0.75;
-  }
   .tariffCard {
     flex-direction: column;
     height: 26rem;
