@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./tariffCard.css";
 import { Button, Badge } from "antd";
 import {
@@ -7,17 +7,29 @@ import {
   CheckOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import TariffModal from "./TariffModal";
+import LogoWodafone from "../images/logoWdf.png";
+import LogoO3 from "../images/logoO3.png";
+import LogoKelekom from "../images/logoTlk.png";
+import LogoChinaCom from "../images/logoChn.png";
+import LogoSingdel from "../images/logoSing.png";
 
 function TariffCard({ tariff, index }) {
-  const tariffs = useSelector((state) => state.tariffRedux.tariffs);
+  const maxDownloadSpeed = useSelector(
+    (state) => state.tariffRedux.maxDownloadSpeed
+  );
+  const maxUploadSpeed = useSelector(
+    (state) => state.tariffRedux.maxUploadSpeed
+  );
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  //fix : get from reducer
-  const maxDownloadSpeed = Math.max(
-    ...tariffs.map((t) => parseInt(t.download_speed, 10))
-  );
-  const maxUploadSpeed = Math.max(
-    ...tariffs.map((t) => parseInt(t.upload_speed, 10))
-  );
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const relativeDownloadSpeed =
     (parseInt(tariff.download_speed, 10) / maxDownloadSpeed) * 100;
@@ -25,7 +37,6 @@ function TariffCard({ tariff, index }) {
     (parseInt(tariff.upload_speed, 10) / maxUploadSpeed) * 100;
 
   let badgeTypes;
-  //seperate the badge & speed comp ?
   const speedProduct = relativeDownloadSpeed * relativeUploadSpeed;
 
   if (speedProduct > 2000) {
@@ -37,7 +48,7 @@ function TariffCard({ tariff, index }) {
   } else if (speedProduct > 50) {
     badgeTypes = "Slow Connection";
   } else {
-    badgeTypes = "default"; // If none of the conditions are met, you can set a default value.
+    badgeTypes = "default";
   }
 
   let badgeColor;
@@ -52,7 +63,14 @@ function TariffCard({ tariff, index }) {
     badgeColor = "red";
   }
 
-  console.log("down:", relativeDownloadSpeed, "up:", relativeUploadSpeed);
+  const brandLogoMap = {
+    Wodafone: LogoWodafone,
+    O3: LogoO3,
+    Kelekom: LogoKelekom,
+    "China Com": LogoChinaCom,
+    Singdel: LogoSingdel,
+  };
+  const logo = brandLogoMap[tariff.brand];
 
   return (
     <Badge.Ribbon text={badgeTypes} color={badgeColor}>
@@ -61,8 +79,16 @@ function TariffCard({ tariff, index }) {
           <div className="tarifNo">{index}</div>
           <div className="tariffBrand">
             <div className="tariffName">{tariff.name}</div>
-            <div className="tariffImage">image</div>
-            <div>{tariff.brand}</div>
+            <div className="tariffImage">
+              {logo && (
+                <img
+                  src={logo}
+                  alt={`${tariff.brand} logo`}
+                  style={{ width: "100%", height: "100%" }} 
+                />
+              )}
+            </div>
+            <div className="tariffBrandName">{tariff.brand}</div>
           </div>
         </div>
         <div className="tariffSpecs">
@@ -91,7 +117,7 @@ function TariffCard({ tariff, index }) {
           </div>
           <div className="tariffOffers">
             {tariff.offers.map((offer, index) => (
-              <div key={offer.id}>
+              <div key={`${tariff.id}-${index}`}>
                 <CheckOutlined />
                 {offer}
               </div>
@@ -100,10 +126,17 @@ function TariffCard({ tariff, index }) {
         </div>
 
         <div className="tariffDetails">
-          <div className="price">Price: {tariff.price}</div>
-          <Button>to Tariff</Button>
+          <div className="price">{tariff.price}</div>
+          <Button onClick={showModal}>to Tariff</Button>
         </div>
       </div>
+      <TariffModal
+        isModalVisible={isModalVisible}
+        handleCancel={handleCancel}
+        tariff={tariff}
+        relativeDownloadSpeed={relativeDownloadSpeed}
+        relativeUploadSpeed={relativeUploadSpeed}
+      />
     </Badge.Ribbon>
   );
 }

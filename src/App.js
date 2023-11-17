@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
-import { setTariffRedux, setLoading,setCalculateTariffs } from "./redux/reducers/tariffReducer";
-import Test from "./components/Test";
+import {
+  setTariffRedux,
+  setLoading,
+  setCalculateTariffs,
+} from "./redux/reducers/tariffReducer";
+import TariffBody from "./components/TariffBody";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import { calculateTariffs } from "./utils/utils"
+import { calculateTariffs } from "./utils/utils";
 function App() {
   const dispatch = useDispatch();
-
 
   //send to redux via thunk - begin success failure, fetch... for better code structure.
   // look : https://github.com/orabazu/todo-app/blob/main/src/actions/TODO/index.tsx
@@ -23,8 +26,9 @@ function App() {
         }
         const data = await response.json();
 
-        const { maxDownloadSpeed, maxUploadSpeed } = calculateTariffs(data.tariffs);
-
+        const { maxDownloadSpeed, maxUploadSpeed } = calculateTariffs(
+          data.tariffs
+        );
 
         setTimeout(() => {
           dispatch(setTariffRedux(data.tariffs));
@@ -42,14 +46,13 @@ function App() {
     fetchTariffs();
   }, [dispatch]);
 
-//use media querry.
 
   return (
     <div className="App">
       <Header />
       <div className="Body">
         <Sidebar />
-        <Test />
+        <TariffBody />
       </div>
     </div>
   );

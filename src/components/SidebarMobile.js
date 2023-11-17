@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { DashboardOutlined, ClearOutlined } from "@ant-design/icons";
 
-const Sidebar = () => {
+const SidebarMobile = () => {
   const speedFilterOptions = [
     { label: "Up to 10 Mbps", value: "upTo10Mbps" },
     { label: "10 - 25 Mbps", value: "10to25Mbps" },
@@ -54,16 +54,17 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar">
-      <div className="sidebarFilters">
+    <div className="sidebarMobile">
+      <div className="sidebarFiltersM">
         <div>Select Brand</div>
         <FilterOptions
+          className="sdFilterOptionsM"
           options={brandFilterOptions}
           filters={brandFilters}
           onChange={handleBrandFilterChange}
         />
       </div>
-      <div className="sidebarFilters">
+      <div className="sidebarFiltersM">
         <div>
           <DashboardOutlined /> Tariff Speed
         </div>
@@ -73,9 +74,9 @@ const Sidebar = () => {
           onChange={handleSpeedFilterChange}
         />
       </div>
-      <div className="sidebarFilters">
+      <div className="sidebarFiltersM">
         <div>Clear All</div>
-        <div className="sdFilterClear" onClick={handleClearAllFilters}>
+        <div className="sdFilterClearM" onClick={handleClearAllFilters}>
           <ClearOutlined />
         </div>
       </div>
@@ -83,4 +84,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarMobile;
