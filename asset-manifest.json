@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/tariffhub/static/css/main.0a33b3db.css",
+    "main.js": "/tariffhub/static/js/main.3f23c032.js",
+    "static/js/787.d679a9fe.chunk.js": "/tariffhub/static/js/787.d679a9fe.chunk.js",
+    "static/media/logoChn.png": "/tariffhub/static/media/logoChn.3c67b48126f7def454fc.png",
+    "static/media/logoSing.png": "/tariffhub/static/media/logoSing.ad6c6faf883cca774366.png",
+    "static/media/logoWdf.png": "/tariffhub/static/media/logoWdf.9ba1736f5179fdd62dcd.png",
+    "static/media/logoO3.png": "/tariffhub/static/media/logoO3.764bbcb0cde932bae9ba.png",
+    "index.html": "/tariffhub/index.html",
+    "main.0a33b3db.css.map": "/tariffhub/static/css/main.0a33b3db.css.map",
+    "main.3f23c032.js.map": "/tariffhub/static/js/main.3f23c032.js.map",
+    "787.d679a9fe.chunk.js.map": "/tariffhub/static/js/787.d679a9fe.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0a33b3db.css",
+    "static/js/main.3f23c032.js"
+  ]
+}
