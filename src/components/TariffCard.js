@@ -36,6 +36,15 @@ function TariffCard({ tariff, index }) {
   const relativeUploadSpeed =
     (parseInt(tariff.upload_speed, 10) / maxUploadSpeed) * 100;
 
+  const brandLogoMap = {
+    Wodafone: LogoWodafone,
+    O3: LogoO3,
+    Kelekom: LogoKelekom,
+    "China Com": LogoChinaCom,
+    Singdel: LogoSingdel,
+  };
+  const logo = brandLogoMap[tariff.brand];
+
   let badgeTypes;
   const speedProduct = relativeDownloadSpeed * relativeUploadSpeed;
 
@@ -63,15 +72,6 @@ function TariffCard({ tariff, index }) {
     badgeColor = "red";
   }
 
-  const brandLogoMap = {
-    Wodafone: LogoWodafone,
-    O3: LogoO3,
-    Kelekom: LogoKelekom,
-    "China Com": LogoChinaCom,
-    Singdel: LogoSingdel,
-  };
-  const logo = brandLogoMap[tariff.brand];
-
   return (
     <Badge.Ribbon text={badgeTypes} color={badgeColor}>
       <div className="tariffCard">
@@ -84,7 +84,7 @@ function TariffCard({ tariff, index }) {
                 <img
                   src={logo}
                   alt={`${tariff.brand} logo`}
-                  style={{ width: "100%", height: "100%" }} 
+                  style={{ width: "100%", height: "100%" }}
                 />
               )}
             </div>

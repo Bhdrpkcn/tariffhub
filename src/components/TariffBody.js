@@ -26,20 +26,10 @@ function TariffBody() {
   );
 
   const handleSortingCancel = useCallback(() => {
-    // Reset sorting filter and order to initial values and apply filters
     dispatch(setSortingFilter("Sort by"));
-    dispatch(sortTariffs()); // Reset sorting order
-    dispatch(filterTariffs());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(sortTariffs());
     dispatch(filterTariffs());
-  }, [tariffsFromRedux.sortingFilter, tariffsFromRedux.speedFilters, dispatch]);
-
-  useEffect(() => {
-    dispatch(filterTariffs());
-  }, [tariffsFromRedux.brandFilters, dispatch]);
+  }, [dispatch]);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   useEffect(() => {
@@ -53,6 +43,16 @@ function TariffBody() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    dispatch(sortTariffs());
+    dispatch(filterTariffs());
+  }, [
+    tariffsFromRedux.brandFilters,
+    tariffsFromRedux.sortingFilter,
+    tariffsFromRedux.speedFilters,
+    dispatch,
+  ]);
 
   return (
     <div className="tariffBody">
@@ -69,7 +69,8 @@ function TariffBody() {
             <Select.Option value="upload_speed">Upload</Select.Option>
             <Select.Option value="price">Price</Select.Option>
           </Select>
-          <CloseOutlined className="sortBtnCancel"
+          <CloseOutlined
+            className="sortBtnCancel"
             style={{ fontSize: 30, marginRight: 8, alignItems: "center" }}
             value={tariffsFromRedux.sortingFilter}
             onClick={handleSortingCancel}

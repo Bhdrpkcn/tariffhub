@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 import { calculateTariffs } from "../../utils/utils";
+
+let api = `https://demo6684249.mockable.io/tariffs`;
 
 export const fetchTariffs = createAsyncThunk(
   "tariffRedux/fetchTariffs",
@@ -8,7 +9,7 @@ export const fetchTariffs = createAsyncThunk(
     try {
       dispatch(setLoading(true));
 
-      const response = await fetch("https://demo6684249.mockable.io/tariffs");
+      const response = await fetch(api);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -70,7 +71,6 @@ export const tariffSlice = createSlice({
           const speedB = parseFloat(b[sortingFilter].replace(/\D/g, ""));
           return speedB - speedA;
         } else if (sortingFilter === "Sort by") {
-          // Sort based on item id
           return a.id - b.id;
         }
         return 0;
